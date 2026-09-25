@@ -1,13 +1,15 @@
 import json
+import logging
 import re
 from typing import Any
 
-from groq import Groq
+from groq import Groq, GroqError
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from app.core.config import settings
 
-MODEL = "llama-3.3-70b-versatile"
+LOGGER = logging.getLogger(__name__)
+MODEL = "openai/gpt-oss-120b"
 
 
 class TechnicalParameter(BaseModel):
@@ -65,15 +67,21 @@ def _request_extraction(client: Groq, raw_text: str, correction: bool = False) -
         if correction
         else ""
     )
-    response = client.chat.completions.create(
-        model=MODEL,
-        temperature=0,
-        response_format={"type": "json_object"},
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": f"{prompt}Source text:\n{raw_text}"},
-        ],
-    )
+    LOGGER.warning("Calling Groq extraction model=%s correction=%s", MODEL, correction)
+    try:
+        response = client.chat.completions.create(
+            model=MODEL,
+            temperature=0,
+            response_format={"type": "json_object"},
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": f"{prompt}Source text:\n{raw_text}"},
+            ],
+        )
+    except GroqError:
+        LOGGER.exception("Groq extraction call failed model=%s", MODEL)
+        raise
+    LOGGER.warning("Groq extraction response received model=%s", MODEL)
     content = response.choices[0].message.content
     if not content:
         raise ValueError("Groq returned an empty response")
@@ -87,7 +95,16 @@ def extract_requirements(raw_text: str) -> ExtractedRequirements:
         raise RuntimeError("GROQ_API_KEY is not configured")
 
     client = Groq(api_key=settings.groq_api_key)
-    first_content = _request_extraction(client, raw_text)
+    try:
+        first_content = _request_extraction(client, raw_text)
+    except GroqError as exc:
+        if getattr(exc, "status_code", None) == 401:
+            raise RuntimeError(
+                "The GROQ_API_KEY was rejected. Update it with a valid Groq API key."
+            ) from exc
+        raise RuntimeError(
+            "The Groq extraction service is unavailable. Please try again shortly."
+        ) from exc
     try:
         return _parse_response(first_content)
     except (json.JSONDecodeError, TypeError, ValidationError, ValueError) as first_error:
@@ -95,5 +112,6 @@ def extract_requirements(raw_text: str) -> ExtractedRequirements:
             return _parse_response(_request_extraction(client, raw_text, correction=True))
         except (json.JSONDecodeError, TypeError, ValidationError, ValueError) as retry_error:
             raise ValueError(
-                "Groq returned invalid requirement JSON after retry"
+                "Could not extract requirements from this input — please provide "
+                "a more complete product description."
             ) from retry_error

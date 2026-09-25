@@ -25,6 +25,22 @@ const languages = [
   { value: "kannada", label: "Kannada" }
 ];
 
+function getApiErrorMessage(requestError, fallback) {
+  const detail = requestError.response?.data?.detail;
+  if (typeof detail === "string" && detail.trim()) return detail;
+  if (Array.isArray(detail)) {
+    const messages = detail
+      .map((item) => item?.msg)
+      .filter(Boolean)
+      .join("; ");
+    if (messages) return messages;
+  }
+  if (!requestError.response) {
+    return "The backend could not be reached. Confirm the local API is running and try again.";
+  }
+  return fallback;
+}
+
 export default function NewAnalysisPage() {
   const router = useRouter();
   const fileInputRef = useRef(null);
@@ -81,10 +97,10 @@ export default function NewAnalysisPage() {
       setDocument(data);
     } catch (requestError) {
       setDocument(null);
-      setUploadError(
-        requestError.response?.data?.detail ||
-          "We could not read this PDF. Check that it is not damaged or image-only."
-      );
+      setUploadError(getApiErrorMessage(
+        requestError,
+        "We could not read this PDF. Check that it is not damaged or image-only."
+      ));
     } finally {
       setIsUploading(false);
     }
@@ -115,10 +131,10 @@ export default function NewAnalysisPage() {
       const { data } = await api.post("/api/analyses", payload);
       router.push(`/analyses/${data.id}/review`);
     } catch (requestError) {
-      setError(
-        requestError.response?.data?.detail ||
-          "The analysis could not be created. Please check your input and try again."
-      );
+      setError(getApiErrorMessage(
+        requestError,
+        "The analysis could not be created. Please check your input and try again."
+      ));
     } finally {
       setIsSubmitting(false);
     }

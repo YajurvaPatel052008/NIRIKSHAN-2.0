@@ -28,6 +28,9 @@ def init_db() -> None:
                 )
             )
             session.commit()
+        elif admin.full_name != "NIRIKSHAN Administrator":
+            admin.full_name = "NIRIKSHAN Administrator"
+            session.commit()
 
 
 def table_names() -> list[str]:

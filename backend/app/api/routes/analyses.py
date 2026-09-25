@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+import logging
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import select
 
@@ -11,6 +13,7 @@ from app.services.requirement_extractor import extract_requirements
 
 router = APIRouter(prefix="/api/analyses", tags=["analyses"])
 router.include_router(recommendations_router)
+LOGGER = logging.getLogger(__name__)
 
 
 class AnalysisRequest(BaseModel):
@@ -27,7 +30,7 @@ class AnalysisResponse(BaseModel):
     raw_input_text: str
     extracted_requirements: dict
     status: AnalysisStatus
-    created_at: str | None = None
+    created_at: datetime | None = None
 
 
 class AnalysisUpdateRequest(BaseModel):
@@ -73,8 +76,17 @@ def create_analysis(
         ) from exc
     except ValueError as exc:
         raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=str(exc),
+        ) from exc
+    except Exception as exc:
+        LOGGER.exception("Unexpected requirement extraction failure")
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail=(
+                "Requirement extraction failed unexpectedly. "
+                "Please try again with a more complete product description."
+            ),
         ) from exc
 
     with SessionLocal() as session:

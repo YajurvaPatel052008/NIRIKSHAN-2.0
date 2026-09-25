@@ -18,6 +18,14 @@ const statusStyles = {
   exported: "border-primary/20 bg-primary/5 text-primary"
 };
 
+function analysisHref(analysis) {
+  const status = String(analysis.status || "draft").toLowerCase();
+  const destination = status === "reviewed" || status === "exported"
+    ? "results"
+    : "review";
+  return `/analyses/${analysis.id}/${destination}`;
+}
+
 export default function DashboardPage() {
   const [analyses, setAnalyses] = useState([]);
   const [reviewAlerts, setReviewAlerts] = useState([]);
@@ -176,7 +184,7 @@ export default function DashboardPage() {
                         </td>
                         <td className="px-5 py-4 text-right">
                           <Link
-                            href={`/analyses/${analysis.id}`}
+                            href={analysisHref(analysis)}
                             className="font-semibold text-primary underline decoration-accent underline-offset-4"
                           >
                             View
@@ -216,7 +224,7 @@ export default function DashboardPage() {
                     Analyzed {formatDate(analysis.created_at)}
                   </p>
                   <Link
-                    href={`/analyses/${analysis.id}`}
+                    href={analysisHref(analysis)}
                     className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary"
                   >
                     Review recommendations

@@ -1,3 +1,4 @@
+// DO NOT create additional root layouts or forget to import ./globals.css here — this file is the only place Tailwind gets loaded.
 import { Noto_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import AppShell from "@/components/AppShell";

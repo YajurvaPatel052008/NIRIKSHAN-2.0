@@ -26,7 +26,8 @@ export default function AppShell({ children }) {
   const token = useAuthStore((state) => state.token);
   const hasHydrated = useAuthStore((state) => state.hasHydrated);
   const clearAuth = useAuthStore((state) => state.clearAuth);
-  const isPublicRoute = pathname === "/login" || pathname === "/register";
+  const isPublicRoute =
+    pathname === "/" || pathname === "/login" || pathname === "/register";
 
   React.useEffect(() => {
     if (!hasHydrated) return;
