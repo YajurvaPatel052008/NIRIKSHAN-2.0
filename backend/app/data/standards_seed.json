@@ -1,0 +1,291 @@
+{
+  "comment": "SAMPLE DATA FOR PROTOTYPE DEMO — NOT AN OFFICIAL BIS DATASET",
+  "standards": [
+    {
+      "is_number": "IS 694:2010",
+      "title": "PVC insulated unsheathed and sheathed cables/cords with rigid and flexible conductor",
+      "scope": "PVC insulated cables for fixed wiring and flexible connections in low-voltage installations.",
+      "product_domain": "electrical_cables",
+      "aliases": ["PVC electrical wire", "low voltage PVC cable"],
+      "technical_parameters": {"rated_voltage_v": "up to 1100", "conductor": "copper or aluminium", "insulation": "PVC"},
+      "version_edition": "2010 edition",
+      "amendments": ["Amendment 1 (sample reference)"],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 694 topic",
+      "related_to": [
+        {"is_number": "IS 8130:2013", "relationship_type": "terminology"},
+        {"is_number": "IS 8130:2013", "relationship_type": "test_method"},
+        {"is_number": "IS 732:2019", "relationship_type": "installation"}
+      ]
+    },
+    {
+      "is_number": "IS 8130:2013",
+      "title": "Conductors for insulated electric cables and flexible cords",
+      "scope": "Requirements for metallic conductors used in insulated electric cables and flexible cords.",
+      "product_domain": "electrical_cables",
+      "aliases": ["cable conductor standard", "electric cable conductor"],
+      "technical_parameters": {"materials": ["copper", "aluminium"], "conductor_classes": ["solid", "stranded"], "resistance_control": true},
+      "version_edition": "2013 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 8130 topic",
+      "related_to": [
+        {"is_number": "IS 694:2010", "relationship_type": "normative_reference"},
+        {"is_number": "IS 8130:2013", "relationship_type": "test_method"}
+      ]
+    },
+    {
+      "is_number": "IS 732:2019",
+      "title": "Code of practice for electrical wiring installations",
+      "scope": "Selection and installation practices for electrical wiring in buildings and similar premises.",
+      "product_domain": "electrical_cables",
+      "aliases": ["electrical wiring code", "building wiring practice"],
+      "technical_parameters": {"system_voltage_v": "up to 1000 AC", "installation_types": ["concealed", "surface", "trunking"], "earthing_required": true},
+      "version_edition": "2019 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": false, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 732 topic",
+      "related_to": [
+        {"is_number": "IS 694:2010", "relationship_type": "installation"},
+        {"is_number": "IS 8130:2013", "relationship_type": "safety"},
+        {"is_number": "IS 8130:2013", "relationship_type": "terminology"}
+      ]
+    },
+    {
+      "is_number": "IS 3196 (Part 1):2013",
+      "title": "Seamless steel gas cylinders — water capacity up to and including 1000 litres",
+      "scope": "Design, construction, inspection and testing of refillable seamless steel gas cylinders.",
+      "product_domain": "lpg_cylinders_and_valves",
+      "aliases": ["LPG steel cylinder", "refillable gas cylinder"],
+      "technical_parameters": {"material": "seamless steel", "water_capacity_l": "up to 1000", "design_pressure_mpa": 1.7},
+      "version_edition": "2013 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 3196 topic",
+      "related_to": [
+        {"is_number": "IS 9798:2017", "relationship_type": "normative_reference"},
+        {"is_number": "IS 8737:2017", "relationship_type": "safety"},
+        {"is_number": "IS 3196 (Part 1):2013", "relationship_type": "related_product"}
+      ]
+    },
+    {
+      "is_number": "IS 9798:2017",
+      "title": "Valves for use with liquefied petroleum gas cylinders",
+      "scope": "Construction and performance requirements for valves fitted to domestic and commercial LPG cylinders.",
+      "product_domain": "lpg_cylinders_and_valves",
+      "aliases": ["LPG cylinder valve", "gas bottle valve"],
+      "technical_parameters": {"service_medium": "LPG", "connection_type": "cylinder valve", "leak_tightness": true},
+      "version_edition": "2017 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 9798 topic",
+      "related_to": [
+        {"is_number": "IS 3196 (Part 1):2013", "relationship_type": "installation"},
+        {"is_number": "IS 8737:2017", "relationship_type": "test_method"},
+        {"is_number": "IS 3196 (Part 1):2013", "relationship_type": "safety"}
+      ]
+    },
+    {
+      "is_number": "IS 8737:2017",
+      "title": "Fittings for use with liquefied petroleum gas cylinders",
+      "scope": "Requirements for cylinder fittings, connectors and associated components used with LPG service.",
+      "product_domain": "lpg_cylinders_and_valves",
+      "aliases": ["LPG cylinder fittings", "gas cylinder connector"],
+      "technical_parameters": {"service_pressure_mpa": 1.7, "compatibility": "domestic LPG", "leak_test": "pneumatic"},
+      "version_edition": "2017 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 8737 topic",
+      "related_to": [
+        {"is_number": "IS 9798:2017", "relationship_type": "test_method"},
+        {"is_number": "IS 3196 (Part 1):2013", "relationship_type": "normative_reference"},
+        {"is_number": "IS 3196 (Part 1):2013", "relationship_type": "terminology"}
+      ]
+    },
+    {
+      "is_number": "IS 4984:2016",
+      "title": "Polyethylene pipes for water supply",
+      "scope": "Polyethylene pipes for conveyance of potable and other water under pressure.",
+      "product_domain": "drinking_water_pipes",
+      "aliases": ["PE water pipe", "poly pipe for water"],
+      "technical_parameters": {"material": "PE", "pressure_classes": ["PN 4", "PN 6", "PN 10", "PN 16"], "water_contact": true},
+      "version_edition": "2016 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 4984 topic",
+      "related_to": [
+        {"is_number": "IS 12235 (Part 1):1986", "relationship_type": "test_method"},
+        {"is_number": "IS 4984:2016", "relationship_type": "installation"},
+        {"is_number": "IS 15778:2007", "relationship_type": "related_product"}
+      ]
+    },
+    {
+      "is_number": "IS 15778:2007",
+      "title": "Chlorinated polyvinyl chloride pipes for potable water supplies",
+      "scope": "CPVC pipes intended for hot and cold potable water distribution systems.",
+      "product_domain": "drinking_water_pipes",
+      "aliases": ["CPVC drinking water pipe", "hot and cold water CPVC"],
+      "technical_parameters": {"material": "CPVC", "nominal_pressure_mpa": 1.0, "temperature_range_c": "up to 82"},
+      "version_edition": "2007 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 15778 topic",
+      "related_to": [
+        {"is_number": "IS 4984:2016", "relationship_type": "related_product"},
+        {"is_number": "IS 12235 (Part 1):1986", "relationship_type": "test_method"},
+        {"is_number": "IS 4984:2016", "relationship_type": "installation"}
+      ]
+    },
+    {
+      "is_number": "IS 12235 (Part 1):1986",
+      "title": "Methods of test for unplasticized PVC pipes for potable water supplies",
+      "scope": "Sampling and test methods for dimensional, physical and performance properties of plastic water pipes.",
+      "product_domain": "drinking_water_pipes",
+      "aliases": ["PVC pipe test methods", "plastic water pipe testing"],
+      "technical_parameters": {"tests": ["dimensions", "hydrostatic pressure", "impact", "opacity"], "test_medium": "water"},
+      "version_edition": "1986 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": false, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 12235 topic",
+      "related_to": [
+        {"is_number": "IS 4984:2016", "relationship_type": "test_method"},
+        {"is_number": "IS 15778:2007", "relationship_type": "test_method"},
+        {"is_number": "IS 4984:2016", "relationship_type": "terminology"}
+      ]
+    },
+    {
+      "is_number": "IS 2925:1984",
+      "title": "Industrial safety helmets",
+      "scope": "Protective helmets for industrial and construction use against falling objects and related hazards.",
+      "product_domain": "protective_helmets",
+      "aliases": ["construction safety helmet", "industrial hard hat"],
+      "technical_parameters": {"impact_energy_j": 49, "penetration_test": true, "chinstrap_compatibility": true},
+      "version_edition": "1984 edition",
+      "amendments": ["Amendment 2 (sample reference)"],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 2925 topic",
+      "related_to": [
+        {"is_number": "IS 2925 (Part 1):2018", "relationship_type": "test_method"},
+        {"is_number": "IS 15298 (Part 1):2011", "relationship_type": "safety"},
+        {"is_number": "IS 4151:2015", "relationship_type": "related_product"}
+      ]
+    },
+    {
+      "is_number": "IS 2925 (Part 1):2018",
+      "title": "Industrial safety helmets — test methods",
+      "scope": "Laboratory test methods for impact absorption, penetration resistance and retention systems of safety helmets.",
+      "product_domain": "protective_helmets",
+      "aliases": ["hard hat test method", "helmet performance testing"],
+      "technical_parameters": {"impact_test": "vertical drop", "penetration_test": "striker", "retention_test": true},
+      "version_edition": "2018 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": false, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 2925 test-method topic",
+      "related_to": [
+        {"is_number": "IS 2925:1984", "relationship_type": "test_method"},
+        {"is_number": "IS 15298 (Part 1):2011", "relationship_type": "normative_reference"}
+      ]
+    },
+    {
+      "is_number": "IS 15298 (Part 1):2011",
+      "title": "Personal protective equipment — safety helmets — test methods",
+      "scope": "General test methods and performance criteria for protective helmets used in industrial applications.",
+      "product_domain": "protective_helmets",
+      "aliases": ["PPE safety helmet standard", "protective headgear testing"],
+      "technical_parameters": {"shock_absorption": true, "lateral_deformation": true, "flame_resistance": false},
+      "version_edition": "2011 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 15298 topic",
+      "related_to": [
+        {"is_number": "IS 2925:1984", "relationship_type": "safety"},
+        {"is_number": "IS 2925 (Part 1):2018", "relationship_type": "test_method"},
+        {"is_number": "IS 4151:2015", "relationship_type": "related_product"}
+      ]
+    },
+    {
+      "is_number": "IS 4151:2015",
+      "title": "Protective helmets for motorcycle riders",
+      "scope": "Protective helmets intended for use by motorcycle and scooter riders on public roads.",
+      "product_domain": "protective_helmets",
+      "aliases": ["two wheeler helmet", "motorcycle helmet"],
+      "technical_parameters": {"impact_protection": true, "field_of_vision": "rider use", "retention_system": true},
+      "version_edition": "2015 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 4151 topic",
+      "related_to": [
+        {"is_number": "IS 15298 (Part 1):2011", "relationship_type": "related_product"},
+        {"is_number": "IS 2925 (Part 1):2018", "relationship_type": "test_method"}
+      ]
+    },
+    {
+      "is_number": "IS 1786:2008",
+      "title": "High strength deformed steel bars and wires for concrete reinforcement",
+      "scope": "Requirements for hot-rolled high-strength deformed bars and wires used as reinforcement in concrete.",
+      "product_domain": "reinforcement_steel",
+      "aliases": ["TMT bars", "rebar", "reinforcement steel"],
+      "technical_parameters": {"grades": [" Fe 415", "Fe 500", "Fe 550"], "surface": "deformed", "weldability": "grade dependent"},
+      "version_edition": "2008 edition",
+      "amendments": ["Amendment 1 (sample reference)", "Amendment 2 (sample reference)"],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 1786 topic",
+      "related_to": [
+        {"is_number": "IS 432 (Part 1):1982", "relationship_type": "related_product"},
+        {"is_number": "IS 1608:2005", "relationship_type": "test_method"},
+        {"is_number": "IS 456:2000", "relationship_type": "installation"}
+      ]
+    },
+    {
+      "is_number": "IS 432 (Part 1):1982",
+      "title": "Mild steel and medium tensile steel bars and hard-drawn steel wire for concrete reinforcement",
+      "scope": "Requirements for plain bars and wires used for reinforcement of concrete structures.",
+      "product_domain": "reinforcement_steel",
+      "aliases": ["plain reinforcement bars", "mild steel rebar"],
+      "technical_parameters": {"bar_types": ["plain", "hard-drawn wire"], "nominal_diameters_mm": "5 to 50", "surface": "plain"},
+      "version_edition": "1982 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 432 topic",
+      "related_to": [
+        {"is_number": "IS 1786:2008", "relationship_type": "related_product"},
+        {"is_number": "IS 1608:2005", "relationship_type": "test_method"},
+        {"is_number": "IS 456:2000", "relationship_type": "installation"}
+      ]
+    },
+    {
+      "is_number": "IS 1608:2005",
+      "title": "Metallic materials — tensile testing at ambient temperature",
+      "scope": "Tensile test method for determining yield strength, tensile strength and elongation of metallic products.",
+      "product_domain": "reinforcement_steel",
+      "aliases": ["steel tensile test", "rebar tensile testing"],
+      "technical_parameters": {"test_temperature_c": 27, "reported_values": ["yield strength", "tensile strength", "elongation"], "specimen": "metallic material"},
+      "version_edition": "2005 edition",
+      "amendments": [],
+      "certification_metadata": {"bis_product_certification": false, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 1608 topic",
+      "related_to": [
+        {"is_number": "IS 1786:2008", "relationship_type": "test_method"},
+        {"is_number": "IS 432 (Part 1):1982", "relationship_type": "test_method"},
+        {"is_number": "IS 456:2000", "relationship_type": "normative_reference"}
+      ]
+    },
+    {
+      "is_number": "IS 456:2000",
+      "title": "Plain and reinforced concrete — code of practice",
+      "scope": "General structural design and construction provisions for plain and reinforced concrete.",
+      "product_domain": "reinforcement_steel",
+      "aliases": ["reinforced concrete code", "RCC design standard"],
+      "technical_parameters": {"concrete_classes": "M10 to M80", "reinforcement_types": ["plain", "deformed"], "durability_design": true},
+      "version_edition": "2000 edition",
+      "amendments": ["Amendment 4 (sample reference)"],
+      "certification_metadata": {"bis_product_certification": false, "crs": false, "hallmarking": false},
+      "source_reference": "Prototype corpus entry based on the IS 456 topic",
+      "related_to": [
+        {"is_number": "IS 1786:2008", "relationship_type": "installation"},
+        {"is_number": "IS 432 (Part 1):1982", "relationship_type": "installation"},
+        {"is_number": "IS 1608:2005", "relationship_type": "normative_reference"}
+      ]
+    }
+  ]
+}

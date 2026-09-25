@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .input-control {
+    @apply w-full rounded-md border border-border bg-surface px-3 py-3 text-sm text-text placeholder:text-textMuted/70 focus:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1;
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  border-color: #d7dee5;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: #f5f7fa;
+  color: #1a2733;
+  font-family: var(--font-noto-sans), sans-serif;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  outline-color: #d9730d;
+}
+
+:focus-visible {
+  outline: 3px solid #d9730d;
+  outline-offset: 2px;
+}
+
+.technical-code {
+  font-family: var(--font-ibm-plex-mono), monospace;
+}

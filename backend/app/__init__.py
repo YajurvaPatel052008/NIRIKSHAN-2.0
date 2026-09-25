@@ -1,0 +1,1 @@
+"""NIRIKSHAN backend application."""
