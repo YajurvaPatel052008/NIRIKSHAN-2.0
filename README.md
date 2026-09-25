@@ -54,6 +54,13 @@ npm run dev
 
 The frontend runs at `http://localhost:3000`.
 
+### Railway service configuration
+
+The repository includes `railway.json` so a Railway service created from the
+repository root installs and starts the FastAPI application in `backend/`.
+Before deploying, set `DATABASE_URL`, `GROQ_API_KEY`, `JWT_SECRET_KEY`, and
+`ALLOWED_ORIGINS` in the Railway service variables. Railway supplies `PORT`.
+
 ## Running the projects
 
 ### Backend
