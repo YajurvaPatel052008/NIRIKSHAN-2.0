@@ -1,6 +1,6 @@
 from typing import Literal
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, status
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from sqlalchemy import select
@@ -29,6 +29,20 @@ class ReviewDecisionRequest(BaseModel):
     decision: Literal["accepted", "edited", "rejected"]
     notes: str = ""
     edited_fields: dict | None = None
+
+
+class SpecificationStandardOverride(BaseModel):
+    is_number: str
+    title: str | None = None
+    relationship: str | None = None
+    version_amendment_note: str | None = None
+    certification_requirement: str | None = None
+    annotation: str | None = None
+
+
+class SpecificationExportOverrides(BaseModel):
+    product_summary: str | None = None
+    standards: list[SpecificationStandardOverride] | None = None
 
 
 class AuditHistoryResponse(BaseModel):
@@ -118,6 +132,7 @@ def audit_history(
 def export_analysis(
     analysis_id: int,
     format: Literal["docx", "json"] = Query(...),
+    overrides: SpecificationExportOverrides | None = Body(default=None),
     current_user: User = Depends(
         require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
     ),
@@ -146,10 +161,17 @@ def export_analysis(
         analysis.status = AnalysisStatus.EXPORTED
         session.commit()
 
+        export_overrides = (
+            overrides.model_dump(exclude_none=True) if overrides else None
+        )
         if format == "json":
-            return generate_specification_json(analysis, accepted)
+            return generate_specification_json(
+                analysis, accepted, export_overrides
+            )
 
-        path = generate_specification_docx(analysis, accepted)
+        path = generate_specification_docx(
+            analysis, accepted, export_overrides
+        )
         return FileResponse(
             path,
             media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
