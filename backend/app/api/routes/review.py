@@ -72,7 +72,7 @@ def update_decision(
     recommendation_id: int,
     payload: ReviewDecisionRequest,
     current_user: User = Depends(
-        require_role(UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> dict:
     with SessionLocal() as session:
@@ -104,7 +104,7 @@ def update_decision(
 def audit_history(
     analysis_id: int,
     _: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> list[AuditHistoryResponse]:
     with SessionLocal() as session:
@@ -134,7 +134,7 @@ def export_analysis(
     format: Literal["docx", "json"] = Query(...),
     overrides: SpecificationExportOverrides | None = Body(default=None),
     current_user: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ):
     with SessionLocal() as session:

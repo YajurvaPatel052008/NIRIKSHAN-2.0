@@ -52,12 +52,17 @@ def register(
     payload: RegisterRequest,
     current_user: User | None = Depends(get_optional_current_user),
 ) -> User:
+    if payload.role == UserRole.REVIEWER:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Reviewer accounts are not supported",
+        )
     if payload.role != UserRole.OFFICER and (
         current_user is None or current_user.role != UserRole.ADMIN
     ):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Only an admin can create reviewer or admin users",
+            detail="Only an admin can create admin users",
         )
 
     with SessionLocal() as session:

@@ -72,7 +72,7 @@ def _recommendation_response(
 def run_analysis(
     analysis_id: int,
     _: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> list[RecommendationResponse]:
     with SessionLocal() as session:
@@ -87,7 +87,7 @@ def run_analysis(
 def get_recommendations(
     analysis_id: int,
     _: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> list[RecommendationResponse]:
     with SessionLocal() as session:

@@ -11,7 +11,7 @@ router = APIRouter(prefix="/api/standards", tags=["standards"])
 def standard_graph(
     standard_id: int,
     _: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> dict[str, list[dict]]:
     graph = get_subgraph_for_visualization(standard_id)

@@ -40,8 +40,7 @@ class AnalysisUpdateRequest(BaseModel):
 
 def _can_access(analysis: Analysis, current_user: User) -> bool:
     return (
-        current_user.role in {UserRole.REVIEWER, UserRole.ADMIN}
-        or analysis.user_id == current_user.id
+        current_user.role == UserRole.ADMIN or analysis.user_id == current_user.id
     )
 
 
@@ -49,7 +48,7 @@ def _can_access(analysis: Analysis, current_user: User) -> bool:
 def create_analysis(
     payload: AnalysisRequest,
     current_user: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> Analysis:
     if bool(payload.raw_text) == bool(payload.document_id):
@@ -108,7 +107,7 @@ def create_analysis(
 @router.get("", response_model=list[AnalysisResponse])
 def list_analyses(
     current_user: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> list[Analysis]:
     with SessionLocal() as session:
@@ -123,7 +122,7 @@ def list_analyses(
 def get_analysis(
     analysis_id: int,
     current_user: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> Analysis:
     with SessionLocal() as session:
@@ -139,7 +138,7 @@ def update_analysis(
     analysis_id: int,
     payload: AnalysisUpdateRequest,
     current_user: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> Analysis:
     with SessionLocal() as session:

@@ -23,7 +23,7 @@ def search_standards(
     q: str = Query(min_length=1),
     top_k: int = Query(default=10, ge=1, le=50),
     _: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> list[StandardSearchResult]:
     with SessionLocal() as session:

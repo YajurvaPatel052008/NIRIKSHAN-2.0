@@ -27,7 +27,7 @@ async def upload_document(
     file: UploadFile | None = File(default=None),
     text: str | None = Form(default=None),
     _: User = Depends(
-        require_role(UserRole.OFFICER, UserRole.REVIEWER, UserRole.ADMIN)
+        require_role(UserRole.OFFICER, UserRole.ADMIN)
     ),
 ) -> DocumentUploadResponse:
     if file is None and text is None:
