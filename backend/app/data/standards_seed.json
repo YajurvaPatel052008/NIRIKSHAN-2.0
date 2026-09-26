@@ -10,7 +10,7 @@
       "technical_parameters": {"rated_voltage_v": "up to 1100", "conductor": "copper or aluminium", "insulation": "PVC"},
       "version_edition": "2010 edition",
       "amendments": ["Amendment 1 (sample reference)"],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 694 topic",
       "related_to": [
         {"is_number": "IS 8130:2013", "relationship_type": "terminology"},
@@ -27,7 +27,7 @@
       "technical_parameters": {"materials": ["copper", "aluminium"], "conductor_classes": ["solid", "stranded"], "resistance_control": true},
       "version_edition": "2013 edition",
       "amendments": [],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 8130 topic",
       "related_to": [
         {"is_number": "IS 694:2010", "relationship_type": "normative_reference"},
@@ -60,7 +60,7 @@
       "technical_parameters": {"material": "seamless steel", "water_capacity_l": "up to 1000", "design_pressure_mpa": 1.7},
       "version_edition": "2013 edition",
       "amendments": [],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 3196 topic",
       "related_to": [
         {"is_number": "IS 9798:2017", "relationship_type": "normative_reference"},
@@ -77,7 +77,7 @@
       "technical_parameters": {"service_medium": "LPG", "connection_type": "cylinder valve", "leak_tightness": true},
       "version_edition": "2017 edition",
       "amendments": [],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 9798 topic",
       "related_to": [
         {"is_number": "IS 3196 (Part 1):2013", "relationship_type": "installation"},
@@ -94,7 +94,7 @@
       "technical_parameters": {"service_pressure_mpa": 1.7, "compatibility": "domestic LPG", "leak_test": "pneumatic"},
       "version_edition": "2017 edition",
       "amendments": [],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 8737 topic",
       "related_to": [
         {"is_number": "IS 9798:2017", "relationship_type": "test_method"},
@@ -111,7 +111,7 @@
       "technical_parameters": {"material": "PE", "pressure_classes": ["PN 4", "PN 6", "PN 10", "PN 16"], "water_contact": true},
       "version_edition": "2016 edition",
       "amendments": [],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 4984 topic",
       "related_to": [
         {"is_number": "IS 12235 (Part 1):1986", "relationship_type": "test_method"},
@@ -128,7 +128,7 @@
       "technical_parameters": {"material": "CPVC", "nominal_pressure_mpa": 1.0, "temperature_range_c": "up to 82"},
       "version_edition": "2007 edition",
       "amendments": [],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 15778 topic",
       "related_to": [
         {"is_number": "IS 4984:2016", "relationship_type": "related_product"},
@@ -162,7 +162,7 @@
       "technical_parameters": {"impact_energy_j": 49, "penetration_test": true, "chinstrap_compatibility": true},
       "version_edition": "1984 edition",
       "amendments": ["Amendment 2 (sample reference)"],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 2925 topic",
       "related_to": [
         {"is_number": "IS 2925 (Part 1):2018", "relationship_type": "test_method"},
@@ -195,7 +195,7 @@
       "technical_parameters": {"shock_absorption": true, "lateral_deformation": true, "flame_resistance": false},
       "version_edition": "2011 edition",
       "amendments": [],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 15298 topic",
       "related_to": [
         {"is_number": "IS 2925:1984", "relationship_type": "safety"},
@@ -212,7 +212,7 @@
       "technical_parameters": {"impact_protection": true, "field_of_vision": "rider use", "retention_system": true},
       "version_edition": "2015 edition",
       "amendments": [],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 4151 topic",
       "related_to": [
         {"is_number": "IS 15298 (Part 1):2011", "relationship_type": "related_product"},
@@ -228,7 +228,7 @@
       "technical_parameters": {"grades": [" Fe 415", "Fe 500", "Fe 550"], "surface": "deformed", "weldability": "grade dependent"},
       "version_edition": "2008 edition",
       "amendments": ["Amendment 1 (sample reference)", "Amendment 2 (sample reference)"],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 1786 topic",
       "related_to": [
         {"is_number": "IS 432 (Part 1):1982", "relationship_type": "related_product"},
@@ -245,7 +245,7 @@
       "technical_parameters": {"bar_types": ["plain", "hard-drawn wire"], "nominal_diameters_mm": "5 to 50", "surface": "plain"},
       "version_edition": "1982 edition",
       "amendments": [],
-      "certification_metadata": {"bis_product_certification": true, "crs": false, "hallmarking": false},
+      "certification_metadata": {"bis_product_certification": {"scheme_name": "BIS Product Certification", "mandatory": true, "certificate_license_number_format": "Format: CM/L-XXXXXXX", "validity_note": "Validity periods and renewal requirements vary by applicable scheme. Verify the current license directly with BIS."}, "crs": false, "hallmarking": false},
       "source_reference": "Prototype corpus entry based on the IS 432 topic",
       "related_to": [
         {"is_number": "IS 1786:2008", "relationship_type": "related_product"},

@@ -101,9 +101,6 @@ export default function AppShell({ children }) {
             </Link>
           )}
         </nav>
-        <div className="border-t border-white/20 px-6 py-4 text-xs text-white/60">
-          SIH26108 · Prototype
-        </div>
       </aside>
       <div className="ml-64 min-h-screen">
         <header className="sticky top-1 z-30 flex h-16 items-center justify-end border-b border-border bg-surface px-8">

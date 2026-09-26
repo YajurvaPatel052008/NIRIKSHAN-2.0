@@ -70,6 +70,17 @@ class AdminStatsResponse(BaseModel):
     acceptance_rate: float
 
 
+@router.get("/api/admin/standards", response_model=list[StandardResponse])
+def get_admin_standards(_: User = admin_only) -> list[Standard]:
+    with SessionLocal() as session:
+        standards = session.scalars(
+            select(Standard).order_by(Standard.is_number, Standard.id)
+        ).all()
+        for standard in standards:
+            session.expunge(standard)
+        return standards
+
+
 @router.post(
     "/api/admin/standards",
     response_model=StandardResponse,

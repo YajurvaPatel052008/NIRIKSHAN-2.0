@@ -79,7 +79,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="border border-border bg-bg p-6 md:p-8">
-              <p className="font-mono text-xs uppercase tracking-widest text-textMuted">SIH26108 / Prototype workflow</p>
+              <p className="font-mono text-xs uppercase tracking-widest text-textMuted">A transparent standards workflow</p>
               <div className="mt-6 space-y-3">
                 {["Requirement specification", "Applicable IS standards", "Evidence and relationships", "Tender-ready output"].map((item, index) => (
                   <div key={item} className="flex items-center gap-3 border border-border bg-surface px-4 py-4">
@@ -127,7 +127,7 @@ export default function HomePage() {
             {[
               ["15+", "Sample Standards Indexed"],
               ["3", "Role-Based Access Levels"],
-              ["SIH26108", "Prototype Build"]
+              ["Evidence First", "Recommendations You Can Review"]
             ].map(([value, label]) => (
               <div key={label} className="border-b border-white/20 p-7 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
                 <p className="font-mono text-2xl font-semibold text-white">{value}</p>
@@ -152,7 +152,7 @@ export default function HomePage() {
               <Link href="/login" className="hover:text-white">Login</Link>
             </div>
           </div>
-          <p className="text-sm leading-6 text-white/60">Smart India Hackathon (SIH26108) prototype. Not for production use.</p>
+          <p className="text-sm leading-6 text-white/60">Designed to support transparent, evidence-backed procurement decisions.</p>
         </div>
       </footer>
     </div>

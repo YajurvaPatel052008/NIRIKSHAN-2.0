@@ -6,7 +6,9 @@ import { useEffect, useMemo, useState } from "react";
 import {
   Background,
   Controls,
-  MiniMap,
+  Handle,
+  MarkerType,
+  Position,
   ReactFlow,
   useEdgesState,
   useNodesState
@@ -128,12 +130,6 @@ export default function StandardsGraphPage() {
             >
               <Background color="#D7DEE5" gap={24} size={1} />
               <Controls />
-              <MiniMap
-                nodeColor={(node) =>
-                  node.data?.isPrimary ? "#D9730D" : "#0B3D6E"
-                }
-                maskColor="rgba(245, 247, 250, 0.75)"
-              />
             </ReactFlow>
           </div>
           {selectedNode && (
@@ -152,6 +148,7 @@ function StandardNode({ data }) {
         data.isPrimary ? "border-accent border-2" : "border-primary/30"
       }`}
     >
+      <Handle type="target" position={Position.Top} isConnectable={false} className="!border-0 !bg-transparent" />
       <p className="technical-code text-xs font-semibold text-primary">{data.is_number}</p>
       <p className="mt-1 text-sm font-semibold leading-5 text-text">{data.title}</p>
       {data.isPrimary && (
@@ -159,6 +156,7 @@ function StandardNode({ data }) {
           Primary
         </span>
       )}
+      <Handle type="source" position={Position.Bottom} isConnectable={false} className="!border-0 !bg-transparent" />
     </div>
   );
 }
@@ -171,8 +169,8 @@ function buildFlowGraph(graph, standardId) {
 
   const relatedNodes = sourceNodes.filter((node) => String(node.id) !== String(primary.id));
   const center = { x: 470, y: 260 };
-  const radiusX = 360;
-  const radiusY = 190;
+  const radiusX = 430;
+  const radiusY = 270;
   const nodes = sourceNodes.map((node) => {
     const isPrimary = String(node.id) === String(primary.id);
     const index = relatedNodes.findIndex((item) => String(item.id) === String(node.id));
@@ -197,13 +195,19 @@ function buildFlowGraph(graph, standardId) {
     };
   });
 
-  const edges = (graph?.edges || []).map((edge, index) => {
+  const nodeIds = new Set(nodes.map((node) => node.id));
+  const edges = (graph?.edges || []).flatMap((edge, index) => {
+    const fromId = String(edge.from_standard_id);
+    const toId = String(edge.to_standard_id);
+    if (!nodeIds.has(fromId) || !nodeIds.has(toId) || fromId === toId) return [];
     const relationshipType = edge.relationship_type || "related_product";
     const color = relationshipColors[relationshipType] || "#5B6B7A";
+    const source = fromId === primaryId ? fromId : toId === primaryId ? toId : fromId;
+    const target = source === fromId ? toId : fromId;
     return {
-      id: `${edge.from_standard_id}-${edge.to_standard_id}-${index}`,
-      source: String(edge.from_standard_id),
-      target: String(edge.to_standard_id),
+      id: `${source}-${target}-${relationshipType}-${index}`,
+      source,
+      target,
       label: formatLabel(relationshipType),
       type: "smoothstep",
       animated: false,
@@ -212,7 +216,7 @@ function buildFlowGraph(graph, standardId) {
       labelBgStyle: { fill: "#FFFFFF", fillOpacity: 0.9 },
       labelBgPadding: [5, 3],
       labelBgBorderRadius: 4,
-      markerEnd: { type: "arrowclosed", color }
+      markerEnd: { type: MarkerType.ArrowClosed, color }
     };
   });
 

@@ -469,7 +469,7 @@ function CertificationContent({ data }) {
           <div>
             <p className="font-medium text-text">No certification metadata available</p>
             <p className="mt-1 text-sm leading-6 text-textMuted">
-              This prototype does not have evidence-backed certification guidance for this standard.
+              Certification guidance for this standard has not been provided.
             </p>
           </div>
         </div>
@@ -477,44 +477,66 @@ function CertificationContent({ data }) {
     );
   }
 
+  const normalizedSchemes = schemes.map((scheme) =>
+    typeof scheme === "string"
+      ? {
+          scheme_name: schemeLabel(scheme),
+          mandatory: Boolean(data?.mandatory),
+          certificate_license_number_format: "Number format not provided in the stored metadata.",
+          validity_note: data?.notes || "Verify current applicability and validity with BIS."
+        }
+      : scheme
+  );
+
   return (
-    <div className="mt-6 space-y-5">
-      <div className="flex items-center justify-between gap-4 border border-border bg-bg p-4">
-        <div>
-          <p className="text-sm text-textMuted">Certification requirement</p>
-          <p className="mt-1 font-semibold text-text">
-            {data.mandatory ? "Mandatory" : "Not marked mandatory"}
-          </p>
-        </div>
-        <span
-          className={`rounded-md border px-2 py-1 text-xs font-semibold ${
-            data.mandatory
-              ? "border-warning/30 bg-warning/5 text-warning"
-              : "border-border bg-surface text-textMuted"
-          }`}
+    <div className="mt-6 space-y-4">
+      <p className="text-sm leading-6 text-textMuted">
+        Review the recorded scheme details and verify current requirements with the issuing authority.
+      </p>
+      {normalizedSchemes.map((scheme, index) => (
+        <article
+          key={`${scheme.scheme_name || "scheme"}-${index}`}
+          className="rounded-md border border-border bg-bg p-4"
         >
-          {data.mandatory ? "Required" : "Advisory"}
-        </span>
-      </div>
-      <div>
-        <h3 className="font-semibold text-text">Applicable schemes</h3>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {schemes.map((scheme) => (
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <ShieldCheck className="mt-0.5 shrink-0 text-primary" size={18} aria-hidden="true" />
+              <h3 className="font-semibold text-text">{scheme.scheme_name}</h3>
+            </div>
             <span
-              key={scheme}
-              className={`inline-flex items-center gap-2 rounded-md border px-3 py-2 text-xs font-semibold ${schemeTone(scheme)}`}
+              className={`shrink-0 rounded-md border px-2 py-1 text-xs font-semibold ${
+                scheme.mandatory
+                  ? "border-warning/30 bg-warning/5 text-warning"
+                  : "border-border bg-surface text-textMuted"
+              }`}
             >
-              <ShieldCheck size={14} aria-hidden="true" />
-              {schemeLabel(scheme)}
+              {scheme.mandatory ? "Mandatory" : "Optional"}
             </span>
-          ))}
-        </div>
-      </div>
+          </div>
+          <div className="mt-4 space-y-3 border-t border-border pt-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-textMuted">
+                License number format
+              </p>
+              <p className="mt-1 font-mono text-sm leading-6 text-text">
+                {scheme.certificate_license_number_format || "Number format not provided."}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-textMuted">
+                Validity
+              </p>
+              <p className="mt-1 text-sm leading-6 text-textMuted">
+                {scheme.validity_note || "Verify current validity directly with the issuing authority."}
+              </p>
+            </div>
+          </div>
+        </article>
+      ))}
       {data.notes && (
-        <div className="border-l-2 border-primary/30 pl-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-textMuted">Notes</p>
-          <p className="mt-1 text-sm leading-6 text-textMuted">{data.notes}</p>
-        </div>
+        <p className="border-l-2 border-primary/30 pl-3 text-xs leading-5 text-textMuted">
+          {data.notes}
+        </p>
       )}
     </div>
   );
@@ -530,24 +552,20 @@ function schemeLabel(value) {
   return value;
 }
 
-function schemeTone(value) {
-  const normalized = String(value).toLowerCase();
-  if (normalized.includes("bis") || normalized.includes("product certification")) {
-    return "border-primary/25 bg-primary/5 text-primary";
-  }
-  if (normalized.includes("crs")) {
-    return "border-accent/30 bg-accent/5 text-accent";
-  }
-  if (normalized.includes("hallmark")) {
-    return "border-success/30 bg-success/5 text-success";
-  }
-  return "border-border bg-bg text-textMuted";
-}
-
 function EvidenceContent({ recommendation }) {
   const evidence = Array.isArray(recommendation.evidence)
     ? recommendation.evidence
     : [];
+  const groupedEvidence = evidence.reduce((groups, item) => {
+    const evidenceItem = item && typeof item === "object" ? item : { text: item };
+    const text = String(evidenceItem.text || "");
+    const field = String(evidenceItem.field || matchedField(text));
+    const key = field.toLowerCase();
+    if (!groups.has(key)) groups.set(key, { field, items: [] });
+    groups.get(key).items.push({ ...evidenceItem, text });
+    return groups;
+  }, new Map());
+  const evidenceGroups = Array.from(groupedEvidence.values());
   const scores = [
     {
       label: "Semantic similarity",
@@ -561,47 +579,58 @@ function EvidenceContent({ recommendation }) {
     }
   ];
 
+  const technicalParameterCount = evidenceGroups
+    .filter((group) => group.field.toLowerCase().includes("technical"))
+    .reduce((total, group) => total + group.items.length, 0);
+  const summary = evidenceGroups.length
+    ? technicalParameterCount
+      ? `This standard matched ${evidenceGroups.some((group) => group.field.toLowerCase().includes("product") || group.field.toLowerCase().includes("domain")) ? "the product domain and " : ""}${technicalParameterCount} technical parameter${technicalParameterCount === 1 ? "" : "s"}.`
+      : `This standard was recommended based on matching evidence for ${evidenceGroups.map((group) => formatLabel(group.field)).join(", ")}.`
+    : "No matched evidence snippets are available to explain this recommendation.";
+
   return (
     <div className="mt-6 space-y-6">
+      <p className="border-l-2 border-primary bg-primary/5 px-4 py-3 text-sm leading-6 text-text">
+        {summary}
+      </p>
       <div>
-        <h3 className="font-semibold text-text">Why this standard matched</h3>
-        {evidence.length ? (
-          <div className="mt-3 space-y-3">
-            {evidence.map((item, index) => {
-              const text = typeof item === "string" ? item : item.text;
-              const field =
-                typeof item === "object" && item.field
-                  ? item.field
-                  : matchedField(text);
-              const snippetScore =
-                typeof item === "object" && item.score !== undefined
-                  ? normalizeScore(item.score)
-                  : null;
-              return (
-                <div
-                  key={`${text || "evidence"}-${index}`}
-                  className="border border-border bg-bg p-4"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-textMuted">
-                      Matched requirement field
-                    </p>
-                    <span className="rounded-md border border-primary/20 bg-surface px-2 py-1 text-xs font-semibold capitalize text-primary">
-                      {formatLabel(field)}
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-text">{evidenceText(text)}</p>
-                  {typeof item === "object" && item.source && (
-                    <p className="mt-2 text-xs text-textMuted">Source: {item.source}</p>
-                  )}
-                  {snippetScore !== null && (
-                    <p className="mt-2 text-xs font-semibold text-primary">
-                      Evidence relevance: {snippetScore}%
-                    </p>
-                  )}
+        <h3 className="font-semibold text-text">Evidence by matched field</h3>
+        {evidenceGroups.length ? (
+          <div className="mt-4 space-y-5">
+            {evidenceGroups.map((group) => (
+              <section key={group.field}>
+                <h4 className="text-sm font-semibold capitalize text-primary">
+                  {formatLabel(group.field)}
+                </h4>
+                <div className="mt-2 space-y-2">
+                  {group.items.map((item, index) => {
+                    const snippetScore = item.score === undefined
+                      ? null
+                      : normalizeScore(item.score);
+                    return (
+                      <div
+                        key={`${item.text || "evidence"}-${index}`}
+                        className="ml-2 border-l-2 border-accent bg-bg px-4 py-3"
+                      >
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <span className="rounded-md border border-border bg-surface px-2 py-1 text-[11px] font-medium text-textMuted">
+                            From: {evidenceSource(item.source)}
+                          </span>
+                          {snippetScore !== null && (
+                            <span className="text-xs font-semibold text-primary">
+                              Relevance {snippetScore}%
+                            </span>
+                          )}
+                        </div>
+                        <blockquote className={`mt-2 text-sm leading-6 text-text ${group.field.toLowerCase().includes("technical") ? "font-mono" : ""}`}>
+                          “{evidenceText(item.text)}”
+                        </blockquote>
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
+              </section>
+            ))}
           </div>
         ) : (
           <p className="mt-2 text-sm text-textMuted">
@@ -626,18 +655,26 @@ function ScoreRow({ label, value, description }) {
   const percentage = value === undefined || value === null
     ? null
     : normalizeScore(value);
+  const tone = percentage === null ? null : confidenceTone(percentage);
   return (
     <div className="border border-border bg-bg p-4">
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm font-medium text-text">{label}</p>
-        <span className="text-sm font-bold text-primary">
+        <span className={`text-sm font-bold ${tone?.text || "text-textMuted"}`}>
           {percentage === null ? "Not provided" : `${percentage}%`}
         </span>
       </div>
       {percentage !== null && (
-        <div className="mt-3 h-2 overflow-hidden rounded-full bg-surface">
+        <div
+          className="mt-3 h-3 overflow-hidden rounded-full border border-border bg-surface"
+          role="progressbar"
+          aria-label={label}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={percentage}
+        >
           <div
-            className={`h-full ${confidenceTone(percentage).bar}`}
+            className={`h-full rounded-full transition-[width] ${tone.bar}`}
             style={{ width: `${percentage}%` }}
           />
         </div>
@@ -660,9 +697,22 @@ function matchedField(value) {
 function evidenceText(value) {
   const text = String(value || "");
   if (text.startsWith("product/domain=")) {
-    return `The requirement's product or domain aligns with ${text.slice("product/domain=".length)}.`;
+    return text.slice("product/domain=".length);
+  }
+  const parameterMatch = text.match(/^technical_parameter\s+([^=]+)(?:=(.*))?$/i);
+  if (parameterMatch) {
+    return parameterMatch[2]
+      ? `${parameterMatch[1].replaceAll("_", " ")}: ${parameterMatch[2]}`
+      : parameterMatch[1].replaceAll("_", " ");
   }
   return text;
+}
+
+function evidenceSource(value) {
+  const source = String(value || "").toLowerCase();
+  if (source.includes("requirement")) return "extracted requirement";
+  if (source.includes("metadata") || source.includes("standard")) return "standard metadata";
+  return value ? formatLabel(value) : "standard metadata";
 }
 
 function GraphContent({ graph, loading }) {
